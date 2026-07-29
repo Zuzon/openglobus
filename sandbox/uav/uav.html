@@ -4,18 +4,56 @@
     <title>OpenStreetMap Base Layer</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./uav.js" type="module"></script>
+    
     <link rel="stylesheet" href="../../css/og.css" type="text/css"/>
     <style>
         body {
             padding: 0;
             margin: 0;
         }
+        .dosbox-canvas {
+            display: none;
+        }
+        .dosbox {
+	&-container {
+		height: 100dvh;
+		aspect-ratio: 16 / 9;
+		margin: 0 auto;
+		overflow: hidden;
+	}
+
+	&-overlay {
+		background-image: url("https://js-dos.com/cdn/DOOM.png");
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+	&-start {
+		width: fit-content;
+		padding: 1rem 2rem;
+		border-radius: 1rem;
+		left: 50% !important;
+		transform: translateX(-50%);
+		background-color: #222;
+		transition: background-color ease 250ms;
+
+		&:hover {
+			background-color: #111;
+		}
+	}
+
+	&-canvas {
+		width: 100%;
+		height: 100%;
+	}
+}
     </style>
 </head>
 
 <body>
-<div id="earth" style="position: absolute; width:100%;height:100%"></div>
+<div id="earth" style="width:100%;height:1200px"></div>
+<div id="dosbox"></div>
 </body>
-
+<script src="https://js-dos.com/cdn/js-dos-api.js"></script>
+<script src="./uav.js" type="module"></script>
 </html>

@@ -15,7 +15,22 @@ import {
     DepthCamera
 } from "../../lib/og.es.js";
 
-let uavLayer = new Vector("UAV.Layer", {
+
+var dosbox = new Dosbox({
+	id: "dosbox",
+	onload: function (dosbox) {
+		dosbox.run(
+			"https://js-dos.com/cdn/upload/DOOM-@evilution.zip",
+			"./DOOM/DOOM.EXE"
+		);
+	},
+	onrun: function (dosbox, app) {
+		console.log("App '" + app + "' is running");
+        start();
+	}
+});
+function start() {
+    let uavLayer = new Vector("UAV.Layer", {
     scaleByDistance: [50, 50000, 1],
     receiveProjectors: false
 });
@@ -31,7 +46,7 @@ const globus = new Globe({
     layers: [new Bing(), new OpenStreetMap(), uavLayer, myObjects],
     atmosphereEnabled: false,
     fontsSrc: "../../res/fonts",
-    //deferredDisabled: true,
+    deferredDisabled: true,
     // transparentBackground: true,
     // frameOpacity: 0.3,
     //reverseDepth: false
@@ -155,7 +170,7 @@ async function createTrackedCameraEntity(cameraSnapshot) {
         color: [1.0, 1.0, 1.0, 1.0],
         renderMode: "color",
         priority: 0,
-        image: projectorVideo
+        image: document.getElementsByClassName('dosbox-canvas')[0]
     });
     globus.planet.renderer.projectors.add(projector);
 
@@ -269,3 +284,5 @@ globus.planet.renderer.events.on("charkeypress", input.KEY_V, () => {
 
 // globus.planet.renderer.controls.SimpleSkyBackground.colorOne = "black";
 // globus.planet.renderer.controls.SimpleSkyBackground.colorTwo = "black";
+}
+
